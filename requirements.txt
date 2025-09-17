@@ -1,7 +1,7 @@
 streamlit 
 yt_dlp
 opencv-python
-faster_whisper
+whisper
 moviepy
 langchain 
 langchain-community
