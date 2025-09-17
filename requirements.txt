@@ -9,4 +9,5 @@ langchain-community
 langchain-core 
 langchain_groq 
 dotenv
-imagehash pillow
+imagehash
+pillow
