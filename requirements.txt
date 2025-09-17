@@ -4,7 +4,6 @@ opencv-python
 faster_whisper
 moviepy
 langchain 
-groq
 langchain-community
 langchain-core 
 langchain_groq 
