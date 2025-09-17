@@ -22,7 +22,7 @@ def save_uploaded_file(uploaded_file):
 
 def download_youtube_video(url):
     ydl_opts = {
-        'format': 'best',
+        'format': 'best[height<=360]',
         'outtmpl': video_path,
         'cookiefile': 'cookies.txt'
     }

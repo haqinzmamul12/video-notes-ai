@@ -4,7 +4,7 @@ import cv2
 
 DATA_DIR ="data"
 
-def extract_frames(video_id, frame_rate =2):
+def extract_frames(video_id, frame_rate =5):
   try:
     frame_output_dir = os.path.join(DATA_DIR, "frames", video_id)
     os.makedirs(frame_output_dir, exist_ok=True)

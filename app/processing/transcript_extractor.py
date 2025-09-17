@@ -1,7 +1,8 @@
 import os
 import whisper
 #from faster_whisper import WhisperModel
-from moviepy import VideoFileClip  
+#from moviepy import VideoFileClip  
+import subprocess
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -23,14 +24,38 @@ def save_file(transcript, video_id):
     except Exception as e:
        print(e)
 
+# def video_to_audio(video_id):
+#     audio_dir =f"data/audios"
+#     os.makedirs(audio_dir, exist_ok= True)
+#     audio_path =f"{audio_dir}/{video_id}.mp3"
+#     video_path =f"data/videos/{video_id}.mp4"
+#     video_clip = VideoFileClip(video_path)
+#     video_clip.audio.write_audiofile(audio_path)
+#     return audio_path
+
+
+
+
 def video_to_audio(video_id):
-    audio_dir =f"data/audios"
-    os.makedirs(audio_dir, exist_ok= True)
-    audio_path =f"{audio_dir}/{video_id}.mp3"
-    video_path =f"data/videos/{video_id}.mp4"
-    video_clip = VideoFileClip(video_path)
-    video_clip.audio.write_audiofile(audio_path)
+    audio_dir = "data/audios"
+    os.makedirs(audio_dir, exist_ok=True)
+    audio_path = f"{audio_dir}/{video_id}.mp3"
+    video_path = f"data/videos/{video_id}.mp4"
+
+    command = [
+        "ffmpeg",
+        "-i", video_path,
+        "-vn",  # no video
+        "-acodec", "libmp3lame",
+        "-y",  # overwrite
+        audio_path
+    ]
+
+    subprocess.run(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return audio_path
+
+
+
 
 def extract_transcript(video_id, model_size="base"):
     print("Generating audio file...")
