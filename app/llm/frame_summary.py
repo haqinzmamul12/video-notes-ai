@@ -2,6 +2,7 @@ from langchain_groq import ChatGroq
 import base64
 from langchain_core.messages import AIMessage, HumanMessage
 from PIL import Image
+from cleaner import clean_temp_files
 import os
 import imagehash
 from dotenv import load_dotenv 
@@ -116,6 +117,8 @@ def frame_summary_extractor(video_id):
 
     
     save_file(summaries, video_id)
+    clean_temp_files("frame")
+    
 
 # if __name__=="__main__":
 #     frame_summary_extractor("edff92fe")

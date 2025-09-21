@@ -1,5 +1,6 @@
 import os 
 import cv2 
+from cleaner import clean_temp_files
 
 
 DATA_DIR ="data"
@@ -22,6 +23,7 @@ def extract_frames(video_id, frame_rate =5):
 
       success, image =cap.read()
     cap.release()
+    clean_temp_files("video")
 
   except Exception as e:
     print(f"Error ar generating frames: {repr(e)}")

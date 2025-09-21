@@ -32,13 +32,6 @@ def main():
 
             # Create output directories
             #video_id = os.path.splitext(os.path.basename(video_path))[0]
-            
-
-            # Extract frames
-            st.info("🖼 Extracting frames...")
-            extract_frames(video_id)
-            #st.success(f"✅ Extracted {num_frames} frames.")
-            #st.image(os.path.join(frame_output_dir, "frame_0.jpg"), caption="First extracted frame")
 
             # Extract transcript
             st.info("📝 Extracting transcript...")
@@ -47,6 +40,14 @@ def main():
                 transcript = f.read()
             st.success(f"✅ Transcript extracted and saved to {transcript_path}")
             st.text_area("Transcript Preview", transcript)
+            
+
+            # Extract frames
+            st.info("🖼 Extracting frames...")
+            extract_frames(video_id)
+            #st.success(f"✅ Extracted {num_frames} frames.")
+            #st.image(os.path.join(frame_output_dir, "frame_0.jpg"), caption="First extracted frame")
+
 
             # Extract transcript
             st.info("📝 Creating Text Summary From Frames...")

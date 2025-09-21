@@ -5,6 +5,7 @@ from faster_whisper import WhisperModel
 import subprocess
 import warnings
 warnings.filterwarnings("ignore")
+from cleaner import clean_temp_files
 
 DATA_DIR ="data"
 transcript_dir = os.path.join(DATA_DIR, "transcripts")
@@ -64,9 +65,10 @@ def extract_transcript(video_id, model_size="base"):
     #model = whisper.load_model(model_size)
     model = WhisperModel(model_size, device="cpu", compute_type="int8")
 
-    segments, info = model.transcribe(audio_path, beam_size=5)
+    segments, _ = model.transcribe(audio_path, beam_size=5, chunk_length=30)
 
     transcript = " ".join([seg.text for seg in segments])
+    clean_temp_files("audio")
     return save_file(transcript, video_id)
 
 
