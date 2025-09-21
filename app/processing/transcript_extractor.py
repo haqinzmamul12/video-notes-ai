@@ -1,6 +1,6 @@
 import os
-import whisper
-#from faster_whisper import WhisperModel
+#import whisper
+from faster_whisper import WhisperModel
 #from moviepy import VideoFileClip  
 import subprocess
 import warnings
@@ -61,25 +61,32 @@ def extract_transcript(video_id, model_size="base"):
     print("Generating audio file...")
     audio_path = video_to_audio(video_id)
     print("Audio file is generated..")
-    model = whisper.load_model(model_size)
+    #model = whisper.load_model(model_size)
+    model = WhisperModel(model_size, device="cpu", compute_type="int8")
 
-    print("Creating transcripts...")
+    segments, info = model.transcribe(audio_path, beam_size=5)
 
-    result = model.transcribe(
-    audio_path,
-    compression_ratio_threshold=2.4,
-    logprob_threshold=-1.0,
-    no_speech_threshold=0.5
-    )
+    transcript = " ".join([seg.text for seg in segments])
+    return save_file(transcript, video_id)
+
+
+    # print("Creating transcripts...")
+
+    # result = model.transcribe(
+    # audio_path,
+    # compression_ratio_threshold=2.4,
+    # logprob_threshold=-1.0,
+    # no_speech_threshold=0.5
+    # )
     
-    transcript = ""
-    for segment in result["segments"]:
-      if segment["no_speech_prob"] < 0.5:
-        transcript += segment["text"] + " "
+    # transcript = ""
+    # for segment in result["segments"]:
+    #   if segment["no_speech_prob"] < 0.5:
+    #     transcript += segment["text"] + " "
     
-    transcript_path =save_file(transcript, video_id)
-    print("Transcript created.")
-    return transcript_path
+    # transcript_path =save_file(transcript, video_id)
+    # print("Transcript created.")
+    # return transcript_path
 
 # if __name__=='__main__':
 #    extract_transcript("b6ac7afd")
