@@ -1,1 +1,28 @@
+# Environment variables
 .env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files
+data/
+notesAI/
+tests/
+
+# Templates and test files
+template.py
+test_dll_load.py
+
+# Sensitive files
+cookies.txt

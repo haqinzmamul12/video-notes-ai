@@ -4,6 +4,7 @@ from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv 
+from cleaner import clean_temp_files
 
 load_dotenv() 
 GROQ_API_KEY =os.getenv("GROQ_API_KEY")
@@ -81,7 +82,7 @@ def summarize_chunk(llm, chunk_text):
 #     response = llm.invoke(messages)
 #     return response.content.strip()
 
-from langchain.schema import SystemMessage, HumanMessage
+
 
 def summarize_all_chunks(llm, chunk_summaries, batch_size=2):
     """
@@ -127,7 +128,9 @@ def generate_final_notes(video_id):
         raise FileNotFoundError(f"Frame summary not found: {SUMMARY_PATH}")
 
     transcript_text = read_file(TRANSCRIPT_PATH)
+    clean_temp_files("transcript")
     frames_text = read_file(SUMMARY_PATH)
+    clean_temp_files("summaries")
 
     full_input = f"Transcript:\n{transcript_text}\n\nFrame Summaries:\n{frames_text}"
 
